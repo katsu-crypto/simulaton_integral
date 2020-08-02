@@ -33,7 +33,7 @@ def main():
         #ループ変数 0≦i≦3 ２進数で表すと 0b00≦i≦0b11
         #そして、iを左に4ビットシフトさせて平文に足して暗号化すれば、最上位2ビットで全値が出現する
         for i in range(2**2):
-            cryptgram = Mini_Feistel(plain_text^(i<<4) ,keys,ROUND)#iを左に1ビットシフトさせて平文に排他して入力 これで最下位1ビットを固定している
+            cryptgram = Mini_Feistel(plain_text^(i<<4) ,keys,ROUND)#iを左に4ビットシフトさせて平文に排他して入力 これで最下位4ビットを固定している
             #print( "0b"+format(cryptgram, '06b'))#暗号文を2進数で出力
             xor_sum ^= cryptgram#暗号文の値を排他的論理和で足しこむ
         
