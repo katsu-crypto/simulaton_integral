@@ -1,8 +1,9 @@
 #2020年8月6日発表「Bit-Based Division Propertyの紹介とIntegral・高階差分特性探索への適用」における
 #6bitのFeistel暗号におけるIntegral・高階差分特性探索のシミュレーション
 #入力部の特性は　aacccc
-#つまり、上位2ビットで取りうる値すべてが出現し、残り４ビットは固定値である平文集合を用いるIntegral特性
+#つまり、上位2ビットで取りうる値すべてが出現し、残り4ビットは固定値である平文集合を用いるIntegral特性
 #高階差分に対応させると、2階差分
+#このプログラムではビット演算を用いているのでこのサイトを参照してほしい(http://www9.plala.or.jp/sgwr-t/c/sec14.html)
 
 import random
 def main():
@@ -25,12 +26,15 @@ def main():
         xor_sum=0b000000
         
         #Integral特性 aacccc の計算
+        #2**2は2の2乗を表し、forループ内の作業を2の2乗 → 4回行う。　
+        #ループ変数 0≦i≦3 ２進数で表すと 0b00≦i≦0b11
+        #そして、iを左に4ビットシフトさせて平文に足して暗号化すれば、最上位2ビットで全値が出現する
         for i in range(2**2):
             cryptgram = Mini_Feistel(plain_text^(i<<4) ,keys,ROUND)#iを左に1ビットシフトさせて平文に排他して入力 これで最下位1ビットを固定している
             #print( "0b"+format(cryptgram, '06b'))#暗号文を2進数で出力
             xor_sum ^= cryptgram#暗号文の値を排他的論理和で足しこむ
         
-        output_integral = output_integral | xor_sum #output_integralにxor総和をOR演算して代入　最後まで0が続いたビットがxor総和０ってこと
+        output_integral = output_integral | xor_sum #output_integralにxor総和をOR演算して代入　つまり最後まで0が続いたビットがxor総和０ってこと
     
     output_integral = format(output_integral, '06b')
     print("出力Integral特性：" + output_integral.replace('0', 'b').replace('1', 'u'))
