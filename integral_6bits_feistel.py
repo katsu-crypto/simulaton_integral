@@ -1,9 +1,11 @@
-#2020年8月6日発表「Bit-Based Division Propertyの紹介とIntegral・高階差分特性探索への適用」における
-#6bitのFeistel暗号におけるIntegral・高階差分特性探索のシミュレーション
+#2020年8月6日発表「Bit-Based Division Propertyの紹介とIntegral・高階差分特性探索への適用」における6bitのFeistel暗号におけるIntegral・高階差分特性探索のシミュレーション
 #入力部の特性は　aacccc
 #つまり、上位2ビットで取りうる値すべてが出現し、残り4ビットは固定値である平文集合を用いるIntegral特性
 #高階差分に対応させると、2階差分
+
 #このプログラムではビット演算を用いているのでこのサイトを参照してほしい(http://www9.plala.or.jp/sgwr-t/c/sec14.html)
+#このプログラムはブロック長が6bitで高々5階差分までなので書きやすいpythonで実装している。
+#卒研で64bit暗号などにこの手法を適用するならC,C++で書いた方が早く結果出る。もしくはpythonで記述して「pypy」を使うと速くなる模様(未検証)
 
 import random
 def main():
