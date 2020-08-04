@@ -12,12 +12,12 @@ import random
 def main():
     print("入力Integral特性：aacccc")
     ROUND = int( input("何段分のintegral特性を求めますか？　：") )
-    Atempt = 10000 #段鍵、平文のランダム設定の回数
+    ATEMPT = 10000 #段鍵、平文のランダム設定の回数
 
     #出力部のIntegral特性　0で初期化
     output_integral=0b000000 
 
-    for a in range(Atempt):
+    for a in range(ATEMPT):
         #平文をランダムに設定
         plain_text = random.randint(0b000000,0b111111)
         #段鍵をランダムに設定
@@ -29,15 +29,12 @@ def main():
         xor_sum=0b000000
         
         #Integral特性 aacccc の計算
-        #2**2は2の2乗を表し、forループ内の作業を2の2乗 → 4回行う。　
-        #ループ変数 0≦i≦3 ２進数で表すと 0b00≦i≦0b11
-        #そして、iを左に4ビットシフトさせて平文に足して暗号化すれば、最上位2ビットで全値が出現する
-        for i in range(2**2):
-            cryptgram = Mini_Feistel(plain_text^(i<<4) ,keys,ROUND)#iを左に4ビットシフトさせて平文に排他して入力 これで最下位4ビットを固定している
+        for delta_p in range(2**2):
+            cryptgram = Mini_Feistel(plain_text ^ (delta_p<<4) ,keys,ROUND)#iを左に1ビットシフトさせて平文に排他して入力 これで最下位1ビットを固定している
             #print( "0b"+format(cryptgram, '06b'))#暗号文を2進数で出力
             xor_sum ^= cryptgram#暗号文の値を排他的論理和で足しこむ
         
-        output_integral = output_integral | xor_sum #output_integralにxor総和をOR演算して代入　つまり最後まで0が続いたビットがxor総和０ってこと
+        output_integral = output_integral | xor_sum #output_integralにxor総和をOR演算して代入　最後まで0が続いたビットがxor総和０ってこと
     
     output_integral = format(output_integral, '06b')
     print("出力Integral特性：" + output_integral.replace('0', 'b').replace('1', 'u'))
