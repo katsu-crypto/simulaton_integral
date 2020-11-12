@@ -34,10 +34,9 @@ def main():
             #print( "0b"+format(cryptgram, '06b'))#暗号文を2進数で出力
             xor_sum ^= cryptgram#暗号文の値を排他的論理和で足しこむ
         
-        output_integral = output_integral | xor_sum #output_integralにxor総和をOR演算して代入　最後まで0が続いたビットがxor総和０ってこと
+        print(format(xor_sum,"06b"))#6ビットデータxor_sumを2進数表示（0詰め）
     
-    output_integral = format(output_integral, '06b')
-    print("出力Integral特性：" + output_integral.replace('0', 'b').replace('1', 'u'))
+    
 
 #6bitFeistel暗号の暗号器
 #plain_text:6bits平文、keys：6bits段鍵の配列、ROUND：暗号器の段数
