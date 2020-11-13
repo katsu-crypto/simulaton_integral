@@ -20,8 +20,6 @@ def main():
     ROUND = int( input("何段分のintegral特性を求めますか？　：") )
     ATEMPT = 10000 #段鍵、平文のランダム設定の回数
 
-    #出力部のIntegral特性　0で初期化
-    output_integral=0b000000 
 
     for a in range(ATEMPT):
         #平文をランダムに設定
